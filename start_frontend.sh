@@ -29,26 +29,15 @@ fi
 npm start &
 REACT_PID=$!
 
-# 启动Vue前端
-echo "🖖 启动Vue前端 (端口: 8080)..."
-cd ../frontend-vue
-if [ ! -d "node_modules" ]; then
-    echo "安装Vue依赖..."
-    npm install
-fi
-npm run serve &
-VUE_PID=$!
-
 echo ""
 echo "✅ 系统启动完成!"
 echo ""
 echo "📱 访问地址:"
-echo "   React版本: http://localhost:3000"
-echo "   Vue版本:   http://localhost:8080" 
+echo "   React前端: http://localhost:3000"
 echo "   API接口:   http://localhost:8000"
 echo ""
 echo "按 Ctrl+C 停止所有服务"
 
 # 等待用户中断
-trap "echo '🔄 正在停止服务...'; kill $API_PID $REACT_PID $VUE_PID 2>/dev/null; exit" INT
+trap "echo '🔄 正在停止服务...'; kill $API_PID $REACT_PID 2>/dev/null; exit" INT
 wait

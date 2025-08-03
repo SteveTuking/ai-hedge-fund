@@ -2,13 +2,13 @@
 
 ## 🎯 项目概述
 
-我已经为您的AI对冲基金系统创建了完整的前端界面，包括React和Vue两个版本，让您可以通过网页便捷地进行股票分析。
+我已经为您的AI对冲基金系统创建了完整的React前端界面，让您可以通过网页便捷地进行股票分析。
 
 ## 📁 项目结构
 
 ```
 ai-hedge-fund/
-├── frontend/                 # React版本前端
+├── frontend/                 # React前端
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
@@ -18,17 +18,6 @@ ai-hedge-fund/
 │   │   │   └── api.js                  # API服务
 │   │   ├── App.js
 │   │   └── index.js
-│   └── package.json
-├── frontend-vue/             # Vue版本前端
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── StockAnalysisForm.vue   # 股票分析表单
-│   │   │   └── AnalysisResults.vue     # 结果展示组件
-│   │   ├── services/
-│   │   │   └── api.js                  # API服务
-│   │   ├── App.vue
-│   │   └── main.js
 │   └── package.json
 ├── api_server.py             # Flask API服务器
 └── start_frontend.sh         # 一键启动脚本
@@ -58,17 +47,9 @@ npm install
 npm start
 ```
 
-3. **启动Vue前端**
-```bash
-cd frontend-vue
-npm install
-npm run serve
-```
-
 ## 🌐 访问地址
 
-- **React版本**: http://localhost:3000
-- **Vue版本**: http://localhost:8080
+- **React前端**: http://localhost:3000
 - **API接口**: http://localhost:8000
 
 ## ✨ 功能特性
@@ -108,16 +89,10 @@ npm run serve
 
 ## 🛠️ 技术栈
 
-### React版本
+### React前端
 - ⚛️ React 18
 - 🐜 Ant Design
 - 📊 Recharts
-- 🌐 Axios
-
-### Vue版本
-- 🖖 Vue 3
-- 🐜 Ant Design Vue
-- 📊 ECharts + Vue-ECharts
 - 🌐 Axios
 
 ### 后端API
@@ -140,7 +115,6 @@ FINANCIAL_DATASETS_API_KEY=your-financial-datasets-api-key
 
 ### API基础URL配置
 - React: 在`frontend/src/services/api.js`中修改`REACT_APP_API_BASE_URL`
-- Vue: 在`frontend-vue/src/services/api.js`中修改`VUE_APP_API_BASE_URL`
 
 ## 📱 界面预览
 

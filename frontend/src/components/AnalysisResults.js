@@ -14,13 +14,12 @@ import {
   Divider
 } from 'antd';
 import { 
-  TrendingUpOutlined, 
-  TrendingDownOutlined, 
+  ArrowUpOutlined, 
+  ArrowDownOutlined, 
   MinusOutlined,
-  DollarOutlined,
-  PercentageOutlined
+  DollarOutlined
 } from '@ant-design/icons';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const { Title, Text, Paragraph } = Typography;
 const { Panel } = Collapse;
@@ -58,8 +57,8 @@ const AnalysisResults = ({ results, loading }) => {
   const getDecisionIcon = (decision) => {
     if (!decision) return <MinusOutlined />;
     const action = decision.toLowerCase();
-    if (action.includes('buy') || action.includes('买入')) return <TrendingUpOutlined />;
-    if (action.includes('sell') || action.includes('卖出')) return <TrendingDownOutlined />;
+    if (action.includes('buy') || action.includes('买入')) return <ArrowUpOutlined />;
+    if (action.includes('sell') || action.includes('卖出')) return <ArrowDownOutlined />;
     return <MinusOutlined />;
   };
 

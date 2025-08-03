@@ -45,3 +45,4 @@ Thumbs.db
 
 # Txt files
 *.txt
+/frontend/node_modules/*

@@ -2,11 +2,15 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Add the current directory to Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# Add src directory to Python path
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src'))
 
 from src.main import run_hedge_fund
-from src.utils.analysts import ANALYST_CONFIG
-from src.llm.models import AVAILABLE_MODELS
+from src.utils.analysts import ANALYST_ORDER
+from src.llm.models import LLM_ORDER
 from datetime import datetime, timedelta
 import json
 
@@ -54,12 +58,12 @@ def analyze_stocks():
         
         # 获取模型提供商信息
         model_info = None
-        for model in AVAILABLE_MODELS:
-            if model.model_name == data['model_name']:
-                model_info = model
+        for display, value, provider in LLM_ORDER:
+            if value == data['model_name']:
+                model_provider = provider
                 break
-        
-        model_provider = model_info.provider.value if model_info else "OpenAI"
+        else:
+            model_provider = "OpenAI"
         
         # 调用分析引擎
         result = run_hedge_fund(
@@ -84,11 +88,11 @@ def get_available_models():
     """获取可用的AI模型列表"""
     try:
         models = []
-        for model in AVAILABLE_MODELS:
+        for display, value, provider in LLM_ORDER:
             models.append({
-                'label': model.display_name,
-                'value': model.model_name,
-                'provider': model.provider.value
+                'label': display,
+                'value': value,
+                'provider': provider
             })
         return jsonify(models)
     except Exception as e:
@@ -99,13 +103,13 @@ def get_available_analysts():
     """获取可用的分析师列表"""
     try:
         analysts = []
-        for key, config in ANALYST_CONFIG.items():
+        for display, value in ANALYST_ORDER:
             analysts.append({
-                'key': key,
-                'name': config['display_name'],
-                'order': config['order']
+                'key': value,
+                'name': display,
+                'order': len(analysts)
             })
-        return jsonify(sorted(analysts, key=lambda x: x['order']))
+        return jsonify(analysts)
     except Exception as e:
         return jsonify({'error': f'获取分析师列表失败: {str(e)}'}), 500
 
@@ -137,7 +141,6 @@ def health_check():
 if __name__ == '__main__':
     print("启动AI对冲基金API服务器...")
     print("React前端: http://localhost:3000")
-    print("Vue前端: http://localhost:8080")
     print("API服务器: http://localhost:8000")
     
     app.run(
